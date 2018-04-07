@@ -7,10 +7,15 @@
     "react-dom": "^16.3.1",
     "react-scripts": "1.1.4"
   },
+  "devDependencies": {
+    "firebase-tools": "^3.18.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "open": "open 'https://timeline-analyzer.firebaseapp.com'",
+    "deploy": "yarn build && firebase deploy && yarn open",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "echo uncomment to eject #react-scripts eject"
   }
 }
