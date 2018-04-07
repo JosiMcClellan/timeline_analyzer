@@ -12,8 +12,10 @@
     "eject": "echo uncomment to eject #react-scripts eject"
   },
   "dependencies": {
+    "firebase": "^4.12.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-firebaseui": "^1.2.3",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
   },

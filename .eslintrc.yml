@@ -39,13 +39,6 @@
       - error
       - specialLink:
         - to
-    react/prop-types:
-      - error
-      - ignore:
-        - children
-        - location
-        - history
-        - match
 
     # Dan Abramov says so: https://github.com/facebook/create-react-app/issues/87#issuecomment-234627904
     react/jsx-filename-extension:
@@ -53,6 +46,9 @@
       - extensions:
         - .js
 
-    # no big deal, but switching back/forth is slow early on
+    # TEMP switching back/forth is slow early on
     react/prefer-stateless-function:
-      - off #TEMP
+      - off
+    react/prop-types:
+      - error
+      - skipUndeclared: true
