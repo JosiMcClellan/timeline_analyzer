@@ -1,0 +1,58 @@
+---
+  parser: babel-eslint
+  parserOptions:
+    experimentalObjectRestSpread: true
+  plugins:
+    - react
+  env:
+    es6: true
+    browser: true
+  extends:
+    - plugin:react/recommended
+    - airbnb
+  rules:
+
+    # personal preference
+    space-before-function-paren:
+      - error
+      - never
+    consistent-return:
+      - off
+    default-case:
+      - error
+      - commentPattern: ^no default$
+    react/no-children-prop:
+      - off
+
+    # leads to similar methods being confusingly seperated
+    class-methods-use-this:
+      - off
+
+    # for `#reduce` and such
+    no-param-reassign:
+      - error
+      - ignorePropertyModificationsFor:
+        - memo
+
+    # react-router
+    jsx-a11y/anchor-is-valid:
+      - error
+      - specialLink:
+        - to
+    react/prop-types:
+      - error
+      - ignore:
+        - children
+        - location
+        - history
+        - match
+
+    # Dan Abramov says so: https://github.com/facebook/create-react-app/issues/87#issuecomment-234627904
+    react/jsx-filename-extension:
+      - error
+      - extensions:
+        - .js
+
+    # no big deal, but switching back/forth is slow early on
+    react/prefer-stateless-function:
+      - off #TEMP
