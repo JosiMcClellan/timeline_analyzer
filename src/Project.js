@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Github from './Github';
+import { CommitEvent } from './Event';
 
 export default class Project extends React.Component {
   static propTypes = {
@@ -25,12 +26,12 @@ export default class Project extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { token } = nextProps;
     if (token === prevState.token) return null;
-    return { token, history: null };
+    return { token, history: [] };
   }
 
   state = {
     token: null,
-    history: null,
+    history: [],
   };
 
   componentDidMount() {
@@ -50,7 +51,7 @@ export default class Project extends React.Component {
     if (this.requestToken === token) return;
     this.requestToken = token;
     // already have it
-    if (this.state.history) return;
+    if (this.state.history.length) return;
     // not authorized for it
     if (!token) return;
 
@@ -73,7 +74,7 @@ export default class Project extends React.Component {
     return (
       <div>
         <h2>Project page for {owner}/{repo}</h2>
-        <code>{JSON.stringify(history)}</code>
+        {history.map(commit => <CommitEvent {...commit} />)}
       </div>
     );
   }

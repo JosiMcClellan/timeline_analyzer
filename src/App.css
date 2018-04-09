@@ -1,6 +1,3 @@
-html, body, .app {
-}
-
 .app {
   text-align: center;
   display: flex;
@@ -8,23 +5,14 @@ html, body, .app {
   min-height: 100vh;
 }
 
-header {
-  background-color: #222;
-  padding: 30px;
-  color: white;
+.flex-std {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-main {
+.flex-std > * {
   flex: 1;
-}
-
-footer {
-  padding: 25px;
-}
-
-header, footer {
-  background-color: #222;
-  color: white;
 }
 
 .service-brand {
@@ -32,11 +20,25 @@ header, footer {
   width: auto;
 }
 
-/* .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-} */
-/* @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-} */
+.event {
+  padding: 1em;
+  background-color: #eee;
+}
+.event:nth-child(even){
+  background-color: #ccc;
+}
+.event .avatar {
+  width: 2em;
+  height: auto;
+}
+.additions { color: green }
+.deletions { color: red }
+
+header, footer {
+  background-color: #222;
+  color: white;
+}
+
+header { height: 85px }
+footer { height: 35px }
+main { flex: 1 }

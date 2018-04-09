@@ -49,16 +49,12 @@ export default class Github {
             ...on Commit {
               history(first: 20) {
                 nodes{
-                  commitUrl
-                  messageHeadline
-                  message
-                  pushedDate
+                  pushedDate ${/* <-- for grouping */''}
+                  changedFiles  additions  deletions
+                  abbreviatedOid  commitUrl
                   author {
                     date
-                    user {
-                      url
-                      name
-                    }
+                    user { login, url, avatarUrl }
                   }
                 }
               }
