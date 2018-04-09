@@ -46,6 +46,10 @@
       - extensions:
         - .js
 
+    # many components are easily id'd by certain prop
+    react/jsx-first-prop-new-line:
+      - off
+
     # TEMP switching back/forth is slow early on
     react/prefer-stateless-function:
       - off
