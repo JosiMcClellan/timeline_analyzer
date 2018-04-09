@@ -1,51 +1,33 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import firebase from './firebase';
-import Splash from './Splash';
+import Header from './Header';
+import Main from './Main';
 import './App.css';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { user: null };
-  }
+  state = {
+    user: null,
+    token: null,
+  };
 
-  componentDidMount() {
-    this.componentWillUnmount =
-      firebase.auth().onAuthStateChanged(user => this.setState({ user }));
+  handleSignIn = ({ user, credential }) => {
+    this.setState({ user, token: credential.accessToken });
+  }
+  handleSignOut = () => {
+    this.setState({ user: null, token: null });
   }
 
   render() {
-    const { user } = this.state;
+    const { user, token } = this.state;
     return (
       <div className="app">
-        <header>
-          <h1 className="App-title">Timeline Analyzer</h1>
-          {
-            !user
-          ?
-            <StyledFirebaseAuth
-              uiConfig={firebase.uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          :
-            <button onClick={() => firebase.auth().signOut()}>
-              Sign Out
-            </button>
-          }
-        </header>
-        <main>
-          {user && `Welcome, ${user.displayName}`}
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/" component={Splash} />
-              <Route render={() => '404 not found'} />
-            </Switch>
-          </BrowserRouter>
-        </main>
-        <footer>
+        <Header
+          loggedIn={!!user}
+          onSignIn={this.handleSignIn}
+          onSignOut={this.handleSignOut}
+        />
+        <Main {...{ user, token }} />
+        <footer className="flex-std">
           &copy;2018 Josi McClellan
         </footer>
       </div>
