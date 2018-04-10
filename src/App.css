@@ -44,9 +44,10 @@
 }
 .cell {
   flex: 1;
-  text-align: left;
 }
 .details {
+  padding-left: 2em;
+  text-align: left;
   flex: 8;
 }
 .additions, .passed { color: green }

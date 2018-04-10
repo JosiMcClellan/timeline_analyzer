@@ -34,6 +34,7 @@ const details = raw => (
 
 export default raw => ({
   service: 'Github',
+  id: raw.id,
   timestamp: moment(raw.author.date),
   details: details(raw),
 });

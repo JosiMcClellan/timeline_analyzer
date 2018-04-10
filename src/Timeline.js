@@ -26,16 +26,16 @@ export default class Timeline extends React.Component {
   renderEvents() {
     return this.distilled()
       .sort((a, b) => b.timestamp - a.timestamp)
-      .map(data => <Event {...data} />);
+      .map(data => <Event {...data} key={data.id} />);
   }
 
   render() {
     return (
       <div className="timeline">
         <div className="column-headers">
-          <b className="service">Service</b>
-          <b className="timestamp">Date/Time</b>
-          <b className="details">Event</b>
+          <b className="cell service">Service</b>
+          <b className="cell timestamp">Date/Time</b>
+          <b className="cell details">Event</b>
         </div>
         {this.renderEvents()}
       </div>

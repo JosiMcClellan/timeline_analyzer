@@ -21,6 +21,7 @@ const details = raw => (
 
 export default raw => ({
   service: 'Travis',
+  id: raw.id,
   timestamp: moment(raw.started_at),
   details: details(raw),
 });

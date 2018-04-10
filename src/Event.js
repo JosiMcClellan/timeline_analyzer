@@ -8,7 +8,7 @@ const Event = ({ service, timestamp, details }) => (
       {service}
     </p>
     <p className="timestamp cell">
-      {moment(timestamp).fromNow()}
+      {timestamp.fromNow()}
     </p>
     <p className="details cell">
       {details}
@@ -18,7 +18,7 @@ const Event = ({ service, timestamp, details }) => (
 
 Event.propTypes = {
   service: PropTypes.string.isRequired,
-  timestamp: PropTypes.instanceOf(Date).isRequired,
+  timestamp: PropTypes.instanceOf(moment).isRequired,
   details: PropTypes.node.isRequired,
 };
 
