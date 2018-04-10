@@ -1,12 +1,12 @@
-export default class Github {
+export default class GithubService {
   constructor(token) {
     this.token = token;
   }
 
   fetch(...args) {
     return fetch(...this.argumentsForFetch(...args))
-      .then(Github.parse)
-      .then(Github.checkForErrors);
+      .then(GithubService.parse)
+      .then(GithubService.checkForErrors);
   }
 
   argumentsForFetch(graphql) {
@@ -23,9 +23,10 @@ export default class Github {
   }
 
   fetchCommitHistory({ owner, repo }) {
+    // return Promise.resolve(JSON.parse(GithubService.commits));
     return this.fetch({
       variables: { owner, repo },
-      query: Github.commitHistoryQuery,
+      query: GithubService.commitHistoryQuery,
     }).then(({ errors, data }) => {
       if (errors) return { errors };
       return data.repository.defaultBranchRef.target.history.nodes;
@@ -49,12 +50,13 @@ export default class Github {
             ...on Commit {
               history(first: 20) {
                 nodes{
+                  id ${/* <-- for react keying */''}
                   pushedDate ${/* <-- for grouping */''}
                   changedFiles  additions  deletions
                   abbreviatedOid  commitUrl
                   author {
-                    date
                     user { login, url, avatarUrl }
+                    date
                   }
                 }
               }
