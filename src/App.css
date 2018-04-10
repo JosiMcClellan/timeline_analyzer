@@ -20,19 +20,38 @@
   width: auto;
 }
 
-.event {
-  padding: 1em;
-  background-color: #eee;
+.event, .column-headers {
+  height: 100px;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
 }
 .event:nth-child(even){
-  background-color: #ccc;
+  background-color: #eee;
 }
-.event .avatar {
-  width: 2em;
+.user {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+  padding: 8px;
+}
+.user .avatar {
+  width: 2.4em;
   height: auto;
 }
-.additions { color: green }
-.deletions { color: red }
+.cell {
+  flex: 1;
+  text-align: left;
+}
+.details {
+  flex: 8;
+}
+.additions, .passed { color: green }
+.pending { color: yellow }
+.deletions, .failed { color: red }
 
 header, footer {
   background-color: #222;

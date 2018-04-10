@@ -404,6 +404,7 @@ export default class Project extends React.Component {
   };
 
   componentDidMount() {
+    this.requestBuildHistory();
     this.requestAll();
   }
   componentDidUpdate() {
@@ -415,13 +416,12 @@ export default class Project extends React.Component {
 
   requestAll() {
     this.requestCommitHistory();
-    this.requestBuildHistory();
   }
 
   requestBuildHistory() {
     const { owner, repo } = this.props.match.params;
     fetch(
-      `https://api.travis-ci.org/repo/${'JosiMcClellan'}%2F${repo}/builds?limit=5`,
+      `https://api.travis-ci.org/repo/${owner}%2F${repo}/builds?limit=5`,
       {
         headers: {
           'User-Agent': 'API Explorer',
