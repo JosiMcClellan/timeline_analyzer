@@ -44,11 +44,23 @@
 }
 .cell {
   flex: 1;
+  border-left: 1px solid black;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .details {
-  padding-left: 2em;
   text-align: left;
   flex: 8;
+  padding-right: 2em;
+}
+.details b {
+  margin: 0 1em;
+  flex: 0;
+}
+.details a, .details p {
+  flex: 1;
 }
 .additions, .passed { color: green }
 .pending { color: yellow }

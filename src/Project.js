@@ -93,7 +93,7 @@ export default class Project extends React.Component {
     const { commits, builds } = this.state;
     return (
       <div>
-        <h2>Project page for {owner}/{repo}</h2>
+        <h2>{owner}/{repo}</h2>
         <Timeline {...{ commits, builds }} />
       </div>
     );

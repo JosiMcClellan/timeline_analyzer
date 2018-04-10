@@ -13,23 +13,29 @@ const author = ({ login, url, avatarUrl }) => (
 );
 
 const commit = ({ commitUrl, abbreviatedOid }) => (
-  <a href={commitUrl}>commit #{abbreviatedOid}</a>
+  <a className="user" href={commitUrl}>
+    <span>commit</span>
+    <span>#{abbreviatedOid}</span>
+  </a>
 );
 
 const changes = ({ additions, deletions, changedFiles }) => (
-  <span>
-    {changedFiles} files changed (
-    <span className="additions">+{additions} lines</span>
-    &nbsp;|&nbsp;
-    <span className="deletions">-{deletions} lines</span>
-    )
-  </span>
+  <p className="user">
+    <b>{changedFiles} files changed</b>
+    <span className="additions">{additions} lines added</span>
+    <span className="deletions">{deletions} lines removed</span>
+  </p>
 );
 
 const details = raw => (
-  <span>
-    {author(raw.author.user)} authored {commit(raw)}, {changes(raw)}
-  </span>
+  <div className="details cell">
+    <b>User</b>
+    {author(raw.author.user)}
+    <b>authored</b>
+    {commit(raw)}
+    <b>including</b>
+    {changes(raw)}
+  </div>
 );
 
 export default raw => ({

@@ -4,15 +4,13 @@ import moment from 'moment';
 
 const Event = ({ service, timestamp, details }) => (
   <div className="event">
-    <p className="service cell">
-      {service}
-    </p>
-    <p className="timestamp cell">
-      {timestamp.fromNow()}
-    </p>
-    <p className="details cell">
-      {details}
-    </p>
+    <div className="service cell">
+      <p>{service}</p>
+    </div>
+    <div className="timestamp cell">
+      <p>{timestamp.fromNow()}</p>
+    </div>
+    {details}
   </div>
 );
 

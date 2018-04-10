@@ -1,22 +1,36 @@
 import React from 'react';
 import moment from 'moment';
 
-const status = state => (
-  <span className={`status ${state}`}>{state}</span>
+const build = state => (
+  <a className="user">
+    <span className={`status ${state}`}>{state}</span>
+    <span>build</span>
+  </a>
 );
 
 const branch = ({ name }) => (
-  <span className="branch">{name}</span>
+  <a className="user">
+    <span>branch</span>
+    <span className="branch">{name}</span>
+  </a>
 );
 
 const time = duration => (
-  <span className="duration">{duration} seconds</span>
+  <a className="user">
+    <span className="duration">{duration}</span>
+    <span>seconds</span>
+  </a>
 );
 
 const details = raw => (
-  <span>
-    {status(raw.state)} build on {branch(raw.branch)} ran for {time(raw.duration)}
-  </span>
+  <div className="details cell">
+    <b>Started</b>
+    {build(raw.state)}
+    <b>against</b>
+    {branch(raw.branch)}
+    <b>running for</b>
+    {time(raw.duration)}
+  </div>
 );
 
 export default raw => ({
