@@ -5,6 +5,11 @@ import moment from 'moment';
 const Event = ({ service, timestamp, details }) => (
   <div className="event">
     <div className="service cell">
+      <img
+        className="avatar"
+        alt={service}
+        src={`/service_icons/${service.replace(' ', '-')}.svg`}
+      />
       <p>{service}</p>
     </div>
     <div className="timestamp cell">

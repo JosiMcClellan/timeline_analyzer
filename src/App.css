@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: 'Roboto', Helvetica, sans-serif;
 }
 
 .flex-std {
@@ -29,19 +30,6 @@
 .event:nth-child(even){
   background-color: #eee;
 }
-.user {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  border: 1px solid black;
-  padding: 8px;
-}
-.user .avatar {
-  width: 2.4em;
-  height: auto;
-}
 .cell {
   flex: 1;
   border-left: 1px solid black;
@@ -51,16 +39,28 @@
   align-items: center;
 }
 .details {
-  text-align: left;
   flex: 8;
   padding-right: 2em;
 }
 .details b {
   margin: 0 1em;
-  flex: 0;
+  flex: 1;
 }
 .details a, .details p {
-  flex: 1;
+  flex: 3;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+  padding: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+.avatar {
+  width: 2.4em;
+  height: auto;
 }
 .additions, .passed { color: green }
 .pending { color: yellow }

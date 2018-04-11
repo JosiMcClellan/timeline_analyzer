@@ -1,35 +1,49 @@
 import React from 'react';
 import moment from 'moment';
 
-const build = state => (
-  <a className="user">
-    <span className={`status ${state}`}>{state}</span>
+const buildUrl = ({
+  repository: { slug },
+  id,
+}) => (
+  `https://travis-ci.org/${slug}/builds/${id}`
+);
+
+const branchUrl = ({
+  repository: { slug },
+  branch: { name: branch },
+}) => (
+  `https://github.com/${slug}/tree/${branch}`
+);
+
+const build = raw => (
+  <a className="user" href={buildUrl(raw)}>
+    <span className={`status ${raw.state}`}>{raw.state}</span>
     <span>build</span>
   </a>
 );
 
-const branch = ({ name }) => (
-  <a className="user">
+const branch = raw => (
+  <a className="user" href={branchUrl(raw)}>
     <span>branch</span>
-    <span className="branch">{name}</span>
+    <span className="branch">{raw.branch.name}</span>
   </a>
 );
 
-const time = duration => (
-  <a className="user">
-    <span className="duration">{duration}</span>
+const time = raw => (
+  <p className="user">
+    <span className="duration">{raw.duration}</span>
     <span>seconds</span>
-  </a>
+  </p>
 );
 
 const details = raw => (
   <div className="details cell">
     <b>Started</b>
-    {build(raw.state)}
+    {build(raw)}
     <b>against</b>
-    {branch(raw.branch)}
-    <b>running for</b>
-    {time(raw.duration)}
+    {branch(raw)}
+    <b>running</b>
+    {time(raw)}
   </div>
 );
 
