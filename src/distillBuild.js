@@ -16,21 +16,21 @@ const branchUrl = ({
 );
 
 const build = raw => (
-  <a className="user" href={buildUrl(raw)}>
+  <a href={buildUrl(raw)}>
     <span className={`status ${raw.state}`}>{raw.state}</span>
     <span>build</span>
   </a>
 );
 
 const branch = raw => (
-  <a className="user" href={branchUrl(raw)}>
+  <a href={branchUrl(raw)}>
     <span>branch</span>
     <span className="branch">{raw.branch.name}</span>
   </a>
 );
 
 const time = raw => (
-  <p className="user">
+  <p>
     <span className="duration">{raw.duration}</span>
     <span>seconds</span>
   </p>

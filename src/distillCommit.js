@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 const author = ({ login, url, avatarUrl }) => (
-  <a className="user" href={url}>
+  <a href={url}>
     <img
       src={avatarUrl}
       alt={`avatar for ${login}`}
@@ -13,14 +13,14 @@ const author = ({ login, url, avatarUrl }) => (
 );
 
 const commit = ({ commitUrl, abbreviatedOid }) => (
-  <a className="user" href={commitUrl}>
+  <a href={commitUrl}>
     <span>commit</span>
     <span>#{abbreviatedOid}</span>
   </a>
 );
 
 const changes = ({ additions, deletions, changedFiles }) => (
-  <p className="user">
+  <p>
     <b>{changedFiles} files changed</b>
     <span className="additions">{additions} lines added</span>
     <span className="deletions">{deletions} lines removed</span>
