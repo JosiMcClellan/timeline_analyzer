@@ -7165,6 +7165,10 @@ react-firebaseui@^1.2.3:
     firebaseui "^2.7.0"
     react "^15"
 
+react-oauth-popup@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-oauth-popup/-/react-oauth-popup-0.0.4.tgz#46d6aa49d4b02db12110d63a8df0d71c9556f1f5"
+
 react-router-dom@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.2.2.tgz#c8a81df3adc58bba8a76782e946cbd4eae649b8d"

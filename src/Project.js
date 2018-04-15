@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GithubService from './GithubService';
-import travisService from './TravisService';
+import GithubService from './services/GithubService';
+import travisService from './services/TravisService';
 import Timeline from './Timeline';
 
 export default class Project extends React.Component {

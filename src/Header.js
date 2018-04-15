@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from './firebase';
+
+import firebase from './myfirebase';
+import HerokuLoginButton from './HerokuLoginButton';
 
 const renderSignOut = onSignOut => (
   <button onClick={onSignOut}>Sign Out</button>
@@ -27,6 +29,7 @@ const Header = ({ loggedIn, onSignIn, onSignOut }) => (
   <header className="flex-std">
     <h1 className="App-title">Timeline Analyzer</h1>
     {loggedIn ? renderSignOut(onSignOut) : renderSignIn(onSignIn)}
+    <HerokuLoginButton />
   </header>
 );
 
