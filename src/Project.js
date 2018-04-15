@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GithubService from './GithubService';
+import travisService from './TravisService';
 import Timeline from './Timeline';
 
 export default class Project extends React.Component {
@@ -50,18 +51,8 @@ export default class Project extends React.Component {
 
   requestBuildHistory() {
     const { owner, repo } = this.props.match.params;
-    fetch(
-      `https://api.travis-ci.org/repo/${owner}%2F${repo}/builds?limit=5`,
-      {
-        headers: {
-          'User-Agent': 'API Explorer',
-          'Travis-API-Version': 3,
-          // Authorization: `token qO52SXXaPF-eJqp4MEuL5A`,
-        },
-      },
-    )
-      .then(r => r.json())
-      .then(({ builds }) => this.setState({ builds }));
+    travisService.fetch(owner, repo)
+      .then(builds => this.setState({ builds }));
   }
 
   requestCommitHistory() {

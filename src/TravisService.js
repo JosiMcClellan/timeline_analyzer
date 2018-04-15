@@ -5,24 +5,24 @@ const travisService = {
     'Travis-API-Version': 3,
     // Authorization: `token ...`,
   },
-  fetch: (owner, repo) => (
-    fetch(this.a.buildsUrl(owner, repo), { headers: this.a.headers })
-      .then(this.a.parse)
-      .then(this.a.distill)
-      // .then(x => console.log(x) || x)
-  ),
-  buildsUrl: (owner, repo) => (
-    `${this.a.baseUrl}/repo/${owner}%2F${repo}/builds?limit=5`
-  ),
-  parse: r => r.json(),
-  distill: ({ builds }) => builds.map(rawBuild => ({
-    id: rawBuild.id,
-    duration: rawBuild.duration,
-    timestamp: rawBuild.started_at,
-    status: rawBuild.state,
-    repoSlug: rawBuild.repository.slug,
-    branchName: rawBuild.branch.name,
-  })),
+  fetch(owner, repo) {
+    return fetch(this.buildsUrl(owner, repo), { headers: this.headers })
+      .then(r => r.json())
+      .then(this.distill);
+  },
+  buildsUrl(owner, repo) {
+    return `${this.baseUrl}/repo/${owner}%2F${repo}/builds?limit=5`;
+  },
+  distill({ builds }) {
+    return builds.map(rawBuild => ({
+      id: rawBuild.id,
+      duration: rawBuild.duration,
+      timestamp: rawBuild.started_at,
+      status: rawBuild.state,
+      repoSlug: rawBuild.repository.slug,
+      branchName: rawBuild.branch.name,
+    }));
+  },
 };
 
 export default travisService;

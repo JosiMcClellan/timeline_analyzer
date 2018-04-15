@@ -21,7 +21,12 @@
   width: auto;
 }
 
-.event, .column-headers {
+.column-headers {
+  display: flex;
+  align-items: center;
+}
+
+.event {
   height: 100px;
   background-color: #ccc;
   display: flex;
@@ -46,7 +51,7 @@
   margin: 0 1em;
   flex: 1;
 }
-.details a, .details p {
+.details a, .details p, .details button {
   flex: 3;
   display: inline-flex;
   flex-direction: column;

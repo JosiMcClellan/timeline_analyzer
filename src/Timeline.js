@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Event from './Event';
-import distillCommit from './distillCommit';
-import distillBuild from './distillBuild';
+import Push from './Timeline/Github/Push';
+import Build from './Timeline/Travis/Build';
+import Event from './Timeline/Event';
 
 export default class Timeline extends React.Component {
   static propTypes = {
@@ -15,18 +15,12 @@ export default class Timeline extends React.Component {
     commits: [],
   }
 
-  distilled() {
-    const { commits, builds } = this.props;
-    return [
-      ...commits.map(distillCommit),
-      ...builds.map(distillBuild),
-    ];
-  }
-
   renderEvents() {
-    return this.distilled()
+    const { commits, builds } = this.props;
+    return Push.fromRawCommits(commits)
+      .concat(builds.map(raw => new Build(raw)))
       .sort((a, b) => b.timestamp - a.timestamp)
-      .map(data => <Event {...data} key={data.id} />);
+      .map(data => <Event data={data} key={data.key} />);
   }
 
   render() {
@@ -34,7 +28,7 @@ export default class Timeline extends React.Component {
       <div className="timeline">
         <div className="column-headers">
           <b className="cell service">Service</b>
-          <b className="cell timestamp">Date/Time</b>
+          <b className="cell timestamp">Time</b>
           <b className="cell details">Event</b>
         </div>
         {this.renderEvents()}

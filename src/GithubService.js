@@ -27,10 +27,9 @@ export default class GithubService {
     return this.fetch({
       variables: { owner, repo },
       query: GithubService.commitHistoryQuery,
-    }).then(({ errors, data }) => {
-      if (errors) return { errors };
-      return data.repository.defaultBranchRef.target.history.nodes;
-    });
+    }).then(result => (
+      result.data.repository.defaultBranchRef.target.history.nodes
+    ));
   }
 
   static parse(res) {
@@ -42,17 +41,17 @@ export default class GithubService {
     return result;
   }
 
-  static commitHistoryQuery = `
-    query commitHistory($owner: String! $repo: String!) {
-      repository(owner:$owner name:$repo) {
-        defaultBranchRef {
-          target {
-            ...on Commit {
-              history(first: 20) {
-                nodes{
-                  id ${/* <-- for react keying */''}
-                  pushedDate ${/* <-- for grouping */''}
-                  changedFiles  additions  deletions
+  static commitHistoryQuery = `${/* * * GraphQL is Fun * * */''}
+    query commitHistory($owner: String! $repo: String!) { ${/* <-- type, name, variables */''}
+      repository(owner:$owner name:$repo) {${/* <-- arguments */''}
+        defaultBranchRef {${/* <-- `master` repo */''}
+          target { ${/* <-- the commit that `master` ref points to */''}
+            ...on Commit { ${/* <-- type casting (yes, it's a commit) */''}
+              history(first: 20) { ${/* <-- more commits */''}
+                nodes{ ${/* <-- the actual commits. I think I'll need edges when I somehow do pagination? */''}
+                  id ${/* <-- react key */''}
+                  pushedDate ${/* <-- group key */''}
+                  changedFiles  additions  deletions ${/* * * Traits for Display Below * * */''}
                   abbreviatedOid  commitUrl
                   author {
                     user { login, url, avatarUrl }
