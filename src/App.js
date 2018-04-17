@@ -1,32 +1,53 @@
 import React from 'react';
 
-import Header from './Header';
-import Main from './Main';
-import './App.css';
+import taapi from './App/services/taapi';
+import Header from './App/Header';
+import Splash from './App/Splash';
+import Main from './App/Main';
 
 export default class App extends React.Component {
-  state = {
-    user: null,
-    token: null,
-  };
+  state = this.blankState();
 
-  handleSignIn = ({ user, credential }) => {
-    this.setState({ user, token: credential.accessToken });
+  blankState() {
+    return { user: null, projects: null };
   }
+
+  handleSignIn = (authData) => {
+    taapi.findOrCreateUser(authData).then(this.receiveTaapiUser);
+  }
+
   handleSignOut = () => {
-    this.setState({ user: null, token: null });
+    this.setState(this.blankState());
+  }
+
+  handleAddProject(repo) {
+    taapi.create('project', repo).then(this.receiveProject);
+  }
+
+  receiveProject(project) {
+    this.setState({ projects: [...this.state.projects, project] });
+  }
+
+  receiveTaapiUser = (projects, ...user) => {
+    this.setState({ projects: [], user });
+  }
+
+  renderMain() {
+    if (!this.state.user) return <Splash />;
+    return <Main {...this.state} />;
   }
 
   render() {
-    const { user, token } = this.state;
     return (
       <div className="app">
         <Header
-          loggedIn={!!user}
+          loggedIn={!!this.state.user}
           onSignIn={this.handleSignIn}
           onSignOut={this.handleSignOut}
         />
-        <Main {...{ user, token }} />
+        <main>
+          {this.renderMain()}
+        </main>
         <footer className="flex-std">
           &copy;2018 Josi McClellan
         </footer>

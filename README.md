@@ -1,5 +1,8 @@
 # Timeline Analyzer
 
+### The Cake is a Lie
+This document is out of date but it's crunch time!  Check back very soon.
+
 ### Project Parameters
 - solo project
 - 2 weeks

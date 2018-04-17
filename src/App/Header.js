@@ -2,12 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import firebase from './myfirebase';
+import firebase from './services/firebase';
 import HerokuLoginButton from './HerokuLoginButton';
 
 const renderSignOut = onSignOut => (
   <button onClick={onSignOut}>Sign Out</button>
 );
+
+const cleanData = data => ({
+  githubAccessToken: data.credential.accessToken,
+  githubRefreshToken: data.user.refreshToken,
+  githubId: data.user.providerData[0].uid,
+  name: data.user.displayName,
+  email: data.user.email,
+  avatarUrl: data.user.photoURL,
+});
 
 const renderSignIn = onSignIn => (
   <StyledFirebaseAuth
@@ -18,7 +27,7 @@ const renderSignIn = onSignIn => (
         firebase.auth.GithubAuthProvider.PROVIDER_ID,
       ],
       callbacks: {
-        signInSuccessWithAuthResult: onSignIn,
+        signInSuccessWithAuthResult: data => onSignIn(cleanData(data)),
         signInFailure: console.log,
       },
     }}

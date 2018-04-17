@@ -1,3 +1,5 @@
+// XXX seriously is this an object or a class?
+
 export default class GithubService {
   constructor(token) {
     this.token = token;
@@ -5,7 +7,7 @@ export default class GithubService {
 
   fetch(...args) {
     return fetch(...this.argumentsForFetch(...args))
-      .then(GithubService.parse)
+      .then(res => res.json())
       .then(GithubService.checkForErrors);
   }
 
@@ -22,7 +24,15 @@ export default class GithubService {
     ];
   }
 
-  fetchCommitHistory({ owner, repo }) {
+  getProjects() {
+    return this.fetch({
+      query: GithubService.projectsQuery,
+    }).then(result => (
+      result.data.viewer.repositories.nodes
+    ));
+  }
+
+  getCommits({ owner, repo }) {
     // return Promise.resolve(JSON.parse(GithubService.commits));
     return this.fetch({
       variables: { owner, repo },
@@ -32,14 +42,27 @@ export default class GithubService {
     ));
   }
 
-  static parse(res) {
-    return res.json();
-  }
-
   static checkForErrors(result) {
     if (result.errors) throw result.errors;
     return result;
   }
+
+  static repositoriesQuery = `
+    query repositoriesQuery {
+      viewer {
+        repositories(first:100) {
+          nodes {
+            id
+            nameWithOwner
+            primaryLanguage {
+              name
+              color
+            }
+          }
+        }
+      }
+    }
+  `
 
   static commitHistoryQuery = `${/* * * GraphQL is Fun * * */''}
     query commitHistory($owner: String! $repo: String!) { ${/* <-- type, name, variables */''}

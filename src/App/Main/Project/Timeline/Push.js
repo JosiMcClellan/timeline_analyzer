@@ -45,7 +45,7 @@ export default class Push {
     <div className="details cell">
       <b>Pushed</b>
       <this.CommitsCard />
-      <b>commits, including</b>
+      <b>including</b>
       <ChangesCard {...this.raw.totals} />
       {/* <b>IS IT OPEN? {this.state.open}</b> */}
     </div>

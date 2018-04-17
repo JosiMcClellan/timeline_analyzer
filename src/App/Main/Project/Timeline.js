@@ -1,18 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Push from './Timeline/Github/Push';
-import Build from './Timeline/Travis/Build';
+import Push from './Timeline/Push';
+import Build from './Timeline/Build';
 import Event from './Timeline/Event';
 
 export default class Timeline extends React.Component {
   static propTypes = {
-    builds: PropTypes.arrayOf(PropTypes.object),
-    commits: PropTypes.arrayOf(PropTypes.object),
-  }
-
-  static defaultProps = {
-    builds: [],
-    commits: [],
+    builds: PropTypes.arrayOf(PropTypes.object).isRequired,
+    commits: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // deploys: PropTypes.arrayOf(PropTypes.object),
   }
 
   renderEvents() {
