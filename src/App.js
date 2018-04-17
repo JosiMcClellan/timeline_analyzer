@@ -28,13 +28,18 @@ export default class App extends React.Component {
     this.setState({ projects: [...this.state.projects, project] });
   }
 
-  receiveTaapiUser = (projects, ...user) => {
+  receiveTaapiUser = ({ projects, ...user }) => {
     this.setState({ projects: [], user });
   }
 
   renderMain() {
     if (!this.state.user) return <Splash />;
-    return <Main {...this.state} />;
+    return (
+      <Main
+        {...this.state}
+        addProject={this.handleAddProject}
+      />
+    );
   }
 
   render() {

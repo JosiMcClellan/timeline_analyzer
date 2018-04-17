@@ -1,31 +1,38 @@
 import React from 'react';
-// import PT from 'prop-types';
+import PT from 'prop-types';
 import { Link } from 'react-router-dom';
+import ProjectAdder from './Dashboard/ProjectAdder';
 
 export default class Dashboard extends React.Component {
+  static propTypes = {
+    addProject: PT.func.isRequired,
+    user: PT.shape({
+      name: PT.string.isRequired,
+      githubId: PT.string.isRequired,
+    }).isRequired,
+    projects: PT.arrayOf(PT.shape({
+    })).isRequired,
+  }
+
   static Project({ name, id }) {
     return <Link to={`/${id}`}>project {name} with id {id}</Link>;
   }
 
-  // static propTypes = {
-  //   user: PT.shape({
-  //     id: PT.string.isRequired,
-  //     githubToken: PT.string.isRequired,
-  //   }).isRequired,
-  // }
+  state = { adding: false }
+  startAdding = () => this.setState({ adding: true })
 
-  // FIXME whoops, this functionality goes in the new project component
-  // import GithubService from '../services/GithubService';
-  // state = { repos: [] }
-  //
-  // componentDidMount() {
-  //   new GithubService(this.props.user.githubToken).getRepos()
-  //     .then(repos => this.setState({ repos }));
-  // }
+  renderAdd() {
+    if (this.state.adding) return <ProjectAdder {...this.props} />;
+    return <button onClick={this.startAdding}>New Project</button>;
+  }
 
   render() {
-    // TODO personal touch
-    return this.props.projects.map(Dashboard.Project);
-    // TODO add button
+    return (
+      <div>
+        <h2>{this.props.user.name}: Dashboard</h2>
+        {this.props.projects.map(Dashboard.Project)}
+        {this.renderAdd()}
+      </div>
+    );
   }
 }

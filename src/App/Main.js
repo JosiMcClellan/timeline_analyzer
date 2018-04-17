@@ -6,27 +6,24 @@ import Project from './Main/Project';
 import NotFound from './Main/NotFound';
 import PropsRoute from './Main/PropsRoute';
 
-
-// FIXME make props granular
-const Main = props => (
+const Main = ({ user, projects, addProject }) => (
   <BrowserRouter>
     <Switch>
       <PropsRoute
         exact
         path="/"
         component={Dashboard}
-        props={props}
+        props={{ user, projects, addProject }}
       />
       <PropsRoute
         exact
         path="/:id"
         component={Project}
-        props={props}
+        props={{ user }}
       />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
-  /* eslint-enable react/jsx-max-props-per-line */
 );
 
 export default Main;
