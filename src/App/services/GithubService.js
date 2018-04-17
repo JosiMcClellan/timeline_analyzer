@@ -24,11 +24,11 @@ export default class GithubService {
     ];
   }
 
-  getProjects() {
+  getRepos() {
     return this.fetch({
-      query: GithubService.projectsQuery,
+      query: GithubService.repositoriesQuery,
     }).then(result => (
-      result.data.viewer.repositories.nodes
+      console.log(result) || result.data.viewer.repositories.nodes
     ));
   }
 
@@ -36,27 +36,31 @@ export default class GithubService {
     // return Promise.resolve(JSON.parse(GithubService.commits));
     return this.fetch({
       variables: { owner, repo },
-      query: GithubService.commitHistoryQuery,
+      query: GithubService.commitsQuery,
     }).then(result => (
       result.data.repository.defaultBranchRef.target.history.nodes
     ));
   }
 
   static checkForErrors(result) {
-    if (result.errors) throw result.errors;
+    if (!result.data) throw result.message;
     return result;
   }
 
   static repositoriesQuery = `
     query repositoriesQuery {
-      viewer {
-        repositories(first:100) {
+      viewer{
+        repositories(first:100){
           nodes {
             id
+            name
             nameWithOwner
-            primaryLanguage {
+            primaryLanguage{
               name
               color
+            }
+            languages{
+              totalCount
             }
           }
         }
@@ -64,17 +68,17 @@ export default class GithubService {
     }
   `
 
-  static commitHistoryQuery = `${/* * * GraphQL is Fun * * */''}
-    query commitHistory($owner: String! $repo: String!) { ${/* <-- type, name, variables */''}
+  static commitsQuery = `${/* * * GraphQL is Fun * * */''}
+    query commitsQuery($owner: String! $repo: String!) { ${/* <-- type, name, variables */''}
       repository(owner:$owner name:$repo) {${/* <-- arguments */''}
         defaultBranchRef {${/* <-- `master` repo */''}
           target { ${/* <-- the commit that `master` ref points to */''}
             ...on Commit { ${/* <-- type casting (yes, it's a commit) */''}
-              history(first: 20) { ${/* <-- more commits */''}
-                nodes{ ${/* <-- the actual commits. I think I'll need edges when I somehow do pagination? */''}
+              history(first: 30) { ${/* <-- more commits */''}
+                nodes{ ${/* <-- the actual commits. I think I'll need edges when I do pagination? */''}
                   id ${/* <-- react key */''}
                   pushedDate ${/* <-- group key */''}
-                  changedFiles  additions  deletions ${/* * * Traits for Display Below * * */''}
+                  changedFiles  additions  deletions ${/* * * Display Fields Below * * */''}
                   abbreviatedOid  commitUrl
                   author {
                     user { login, url, avatarUrl }

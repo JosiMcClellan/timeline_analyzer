@@ -12,24 +12,25 @@ export default class App extends React.Component {
     return { user: null, projects: null };
   }
 
-  handleSignIn = (authData) => {
-    taapi.findOrCreateUser(authData).then(this.receiveTaapiUser);
-  }
-
   handleSignOut = () => {
     this.setState(this.blankState());
   }
 
-  handleAddProject(repo) {
-    taapi.create('project', repo).then(this.receiveProject);
+  handleSignIn = (authData) => {
+    taapi.findOrCreateUser(authData).then(this.receiveTaapiUser);
   }
 
-  receiveProject(project) {
+  handleAddProject = (repo) => {
+    taapi.findOrCreateProjectWithUser(repo).then(this.receiveProject);
+  }
+
+  receiveTaapiUser = ({ projects = [], ...user }) => {
+    console.log({user, projects})
+    this.setState({ projects, user });
+  }
+
+  receiveProject = (project) => {
     this.setState({ projects: [...this.state.projects, project] });
-  }
-
-  receiveTaapiUser = ({ projects, ...user }) => {
-    this.setState({ projects: [], user });
   }
 
   renderMain() {

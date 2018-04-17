@@ -15,11 +15,9 @@ const taapi = {
     return this.post('users', params);
   },
 
-  createProject(params) {
+  findOrCreateProjectWithUser(params) {
     return this.post('projects', params);
   },
-
-  // getProject return fetch(this.path('project'))
 };
 
 export default taapi;

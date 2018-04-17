@@ -37,7 +37,7 @@ export default class Project extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = Project.getDerivedStateFromProps(props);
+    this.state = Project.getDerivedStateFromProps(props, {});
   }
 
   componentDidMount() {
