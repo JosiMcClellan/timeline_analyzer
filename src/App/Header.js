@@ -1,7 +1,7 @@
 import React from 'react';
 
 import XPT from './extendedPropTypes';
-import GithubLoginButton from './GithubLoginButton';
+import LoginButton from './LoginButton';
 
 const renderSignOut = onSignOut => (
   <button onClick={onSignOut}>Sign Out</button>
@@ -10,7 +10,7 @@ const renderSignOut = onSignOut => (
 const Header = ({ user, onSignIn, onSignOut }) => (
   <header className="flex-std">
     <h1 className="App-title">Timeline Analyzer</h1>
-    {user ? renderSignOut(onSignOut) : <GithubLoginButton handler={onSignIn} />}
+    {user ? renderSignOut(onSignOut) : <LoginButton handler={onSignIn} />}
   </header>
 );
 

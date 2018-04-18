@@ -13,6 +13,7 @@ export default class App extends React.Component {
   }
 
   receiveUser = ({ projects, user }) => {
+    console.log({ projects, user });
     this.setState({ projects, user: localUser.save(user) });
   }
 
@@ -20,12 +21,12 @@ export default class App extends React.Component {
     this.setState({ projects: null, user: localUser.destroy() });
   }
 
-  receiveProject = (project) => {
-    this.setState({ projects: [...this.state.projects, project] });
+  receiveProject = (newProject) => {
+    this.setState(({ projects }) => ({ projects: [newProject, ...projects] }));
   }
 
   handleSignIn = (code) => {
-    taapi.authenticate(code).then(this.receiveTaapiUser);
+    taapi.authenticate(code).then(this.receiveUser);
   }
 
   handleAddProject = (repo) => {

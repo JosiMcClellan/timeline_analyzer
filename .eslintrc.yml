@@ -38,6 +38,12 @@
       - ignorePropertyModificationsFor:
         - memo
 
+    # allows destructuring omission and promotes clarity/debugging
+    no-unused-vars:
+      - error
+      - ignoreRestSiblings: true
+        argsIgnorePattern: ^_
+
     # react-router
     jsx-a11y/anchor-is-valid:
       - error

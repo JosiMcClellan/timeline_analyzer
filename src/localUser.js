@@ -1,40 +1,36 @@
 const localUser = {
 
+  key: 'timeline_analyzer:user',
+
   save(user) {
-    if (user) return this._set(JSON.stringify(user));
+    if (user) {
+      localStorage.setItem(this._key, JSON.stringify(user));
+      return this.load(this._key);
+    }
     console.warn('tried to save falsy user:', user);
     return this._delete();
   },
 
   load() {
-    const got = this._get();
+    const stored = localStorage.getItem(this._key);
     try {
-      return JSON.parse(got); // null is fine
+      return JSON.parse(stored);
     } catch (_) {
-      console.warn('tried to load unparsable user:', got);
+      console.warn('tried to load unparsable user:', stored);
       return this._delete();
     }
   },
 
   destroy() {
-    const loaded = this.load();
+    const stored = this.load();
     this._delete();
-    return loaded;
+    return stored;
   },
 
-
-  _key: 'timeline_analyzer:user',
-
-  _get() {
-    return localStorage.getItem(this._key) || null;
-  },
-
-  _set(item) {
-    return localStorage.setItem(this._key, item) || item;
-  },
 
   _delete() {
-    return localStorage.removeItem(this._key) || null;
+    localStorage.removeItem(this._key);
+    return null;
   },
 
 };

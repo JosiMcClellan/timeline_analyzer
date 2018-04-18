@@ -8,7 +8,9 @@ const taapi = {
       method: 'POST',
       body: JSON.stringify(params),
       headers: { 'Content-Type': 'application/json' },
-    }).then(res => res.json());
+    })
+      .then(res => res.json())
+      .catch(console.error);
   },
 
   authenticate(code) {
