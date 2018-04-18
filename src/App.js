@@ -1,36 +1,35 @@
 import React from 'react';
 
+import localUser from './localUser';
 import taapi from './App/services/taapi';
 import Header from './App/Header';
 import Splash from './App/Splash';
 import Main from './App/Main';
 
 export default class App extends React.Component {
-  state = this.blankState();
+  constructor() {
+    super();
+    this.state = { projects: null, user: localUser.load() };
+  }
 
-  blankState() {
-    return { user: null, projects: null };
+  receiveUser = ({ projects, user }) => {
+    this.setState({ projects, user: localUser.save(user) });
   }
 
   handleSignOut = () => {
-    this.setState(this.blankState());
-  }
-
-  handleSignIn = (authData) => {
-    taapi.findOrCreateUser(authData).then(this.receiveTaapiUser);
-  }
-
-  handleAddProject = (repo) => {
-    taapi.findOrCreateProjectWithUser(repo).then(this.receiveProject);
-  }
-
-  receiveTaapiUser = ({ projects = [], ...user }) => {
-    console.log({user, projects})
-    this.setState({ projects, user });
+    this.setState({ projects: null, user: localUser.destroy() });
   }
 
   receiveProject = (project) => {
     this.setState({ projects: [...this.state.projects, project] });
+  }
+
+  handleSignIn = (code) => {
+    taapi.authenticate(code).then(this.receiveTaapiUser);
+  }
+
+  handleAddProject = (repo) => {
+    taapi.findOrCreateProjectWithUser(repo).then(this.receiveProject);
   }
 
   renderMain() {
@@ -47,7 +46,7 @@ export default class App extends React.Component {
     return (
       <div className="app">
         <Header
-          loggedIn={!!this.state.user}
+          user={this.state.user}
           onSignIn={this.handleSignIn}
           onSignOut={this.handleSignOut}
         />
@@ -55,7 +54,7 @@ export default class App extends React.Component {
           {this.renderMain()}
         </main>
         <footer className="flex-std">
-          &copy;2018 Josi McClellan
+          <p>&copy;2018 Josi McClellan</p>
         </footer>
       </div>
     );

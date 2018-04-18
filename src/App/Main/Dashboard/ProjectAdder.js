@@ -1,13 +1,18 @@
 import React from 'react';
+import XPT from '../../extendedPropTypes';
 import GithubService from '../../services/GithubService';
 
 class ProjectAdder extends React.Component {
+  static propTypes = {
+    user: XPT.user.isRequired,
+  }
+
   static Repo({
     nameWithOwner,
-    primaryLanguage: lang,
+    primaryLanguage: language,
     languages: { totalCount: langCount },
   }) {
-    lang = lang || { color: 'transparent' };
+    const lang = language || { color: 'transparent' };
     return (
       <div style={{ backgroundColor: lang.color, border: '3px solid black' }}>
         <p>{nameWithOwner}</p>

@@ -11,12 +11,12 @@ const taapi = {
     }).then(res => res.json());
   },
 
-  findOrCreateUser(params) {
-    return this.post('users', params);
+  authenticate(code) {
+    return this.post('auth', { code });
   },
 
   findOrCreateProjectWithUser(params) {
-    return this.post('projects', params);
+    return this.post('projects', { params });
   },
 };
 

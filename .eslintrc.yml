@@ -24,9 +24,13 @@
     react/no-children-prop:
       - off
 
-    # leads to similar methods being confusingly seperated
-    class-methods-use-this:
-      - off
+    # whatever you do in the privacy of your own home...
+    no-underscore-dangle:
+      - error
+      - allowAfterThis: true
+
+    # maybe temp... can lead to similar methods being confusingly seperated
+    class-methods-use-this: off
 
     # for `#reduce` and such
     no-param-reassign:
@@ -40,6 +44,9 @@
       - specialLink:
         - to
 
+    # supports my extendedPropTypes.js
+    react/no-typos: off
+
     # Dan Abramov says so: https://github.com/facebook/create-react-app/issues/87#issuecomment-234627904
     react/jsx-filename-extension:
       - error
@@ -47,12 +54,10 @@
         - .js
 
     # many components are easily id'd by certain prop
-    react/jsx-first-prop-new-line:
-      - off
+    react/jsx-first-prop-new-line: off
 
     # TEMP switching back/forth is slow early on
-    react/prefer-stateless-function:
-      - off
+    react/prefer-stateless-function: off
     react/prop-types:
       - error
       - skipUndeclared: true

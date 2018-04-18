@@ -1,17 +1,14 @@
 import React from 'react';
-import PT from 'prop-types';
 import { Link } from 'react-router-dom';
+
+import XPT from '../extendedPropTypes';
 import ProjectAdder from './Dashboard/ProjectAdder';
 
 export default class Dashboard extends React.Component {
   static propTypes = {
-    addProject: PT.func.isRequired,
-    user: PT.shape({
-      name: PT.string.isRequired,
-      githubId: PT.string.isRequired,
-    }).isRequired,
-    projects: PT.arrayOf(PT.shape({
-    })).isRequired,
+    addProject: XPT.func.isRequired,
+    user: XPT.user.isRequired,
+    projects: XPT.arrayOf(XPT.user).isRequired,
   }
 
   static Project({ name, id }) {
@@ -28,11 +25,11 @@ export default class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <h2>{this.props.user.name}: Dashboard</h2>
         {this.props.projects.map(Dashboard.Project)}
         {this.renderAdd()}
-      </div>
+      </React.Fragment>
     );
   }
 }

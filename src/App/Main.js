@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import XPT from './extendedPropTypes';
 import Dashboard from './Main/Dashboard';
 import Project from './Main/Project';
 import NotFound from './Main/NotFound';
@@ -25,5 +26,11 @@ const Main = ({ user, projects, addProject }) => (
     </Switch>
   </BrowserRouter>
 );
+
+Main.propTypes = {
+  user: XPT.user.isRequired,
+  projects: XPT.arrayOf(XPT.project).isRequired,
+  addProject: XPT.func.isRequired,
+};
 
 export default Main;

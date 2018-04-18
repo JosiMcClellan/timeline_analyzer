@@ -1,7 +1,7 @@
 import React from 'react';
-import PT from 'prop-types';
 import { Switch } from 'react-router-dom';
 
+import XPT from '../extendedPropTypes';
 import taapi from '../services/taapi';
 import travis from '../services/travis';
 import GithubService from '../services/GithubService';
@@ -12,16 +12,10 @@ import Config from './Project/Config';
 
 export default class Project extends React.Component {
   static propTypes = {
-    user: PT.shape({
-      githubToken: PT.string.isRequired,
-    }).isRequired,
-    // BUG `eslint-plugin-react` doesn't yet check `::getDerivedStateFromProps`
-    // eslint-disable-next-line react/no-unused-prop-types
-    match: PT.shape({
-      params: PT.shape({
-        id: PT.string.isRequired,
-      }).isRequired,
-    }).isRequired,
+    ...XPT.user,
+    ...XPT.matchParams({
+      id: XPT.string.isRequired,
+    }),
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
