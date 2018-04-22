@@ -9,7 +9,7 @@ const ServiceCell = ({ service }) => (
       alt={service}
       src={`/service_icons/${service.replace(' ', '-')}.svg`}
     />
-    <p>{service}</p>
+    <p>&nbsp;{service}</p>
   </div>
 );
 

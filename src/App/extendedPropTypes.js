@@ -16,15 +16,23 @@ const XPT = {
 
   project: PropTypes.shape({
     id: strReq,
-    name: strReq,
-    hasTravis: PropTypes.bool.isRequired,
+    nameWithOwner: strReq,
+    travisId: PropTypes.string,
     herokuSlug: PropTypes.string,
   }),
 
-  matchParams(params) {
+  matchParams(shape) {
     return {
       match: PropTypes.shape({
-        params: PropTypes.shape(params).isRequired,
+        params: PropTypes.shape(shape).isRequired,
+      }).isRequired,
+    };
+  },
+
+  locationState(shape) {
+    return {
+      location: PropTypes.shape({
+        state: PropTypes.shape(shape).isRequired,
       }).isRequired,
     };
   },

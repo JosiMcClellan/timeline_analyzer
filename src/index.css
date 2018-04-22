@@ -74,11 +74,16 @@ body {
 }
 .additions, .passed { color: green }
 .pending { color: yellow }
-.deletions, .failed { color: red }
+.deletions, .failed { color: #f22 }
 
 header, footer {
   background-color: #222;
   color: white;
+}
+
+h1 > a {
+  color: white;
+  text-decoration: none;
 }
 
 header { height: 85px }

@@ -1,15 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import XPT from './extendedPropTypes';
 import LoginButton from './LoginButton';
 
 const renderSignOut = onSignOut => (
-  <button onClick={onSignOut}>Sign Out</button>
+  <div>
+    <button onClick={onSignOut} style={{ width: '10%' }}>Sign Out</button>
+  </div>
 );
 
 const Header = ({ user, onSignIn, onSignOut }) => (
   <header className="flex-std">
-    <h1 className="App-title">Timeline Analyzer</h1>
+    <h1 className="App-title"><Link to="/">Timeline Analyzer</Link></h1>
     {user ? renderSignOut(onSignOut) : <LoginButton handler={onSignIn} />}
   </header>
 );

@@ -18,6 +18,9 @@
       - never
     consistent-return:
       - off
+    function-paren-newline:
+      - error
+      - consistent
     default-case:
       - error
       - commentPattern: ^no default$

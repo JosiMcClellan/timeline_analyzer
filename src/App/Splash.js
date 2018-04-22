@@ -12,10 +12,10 @@ const Splash = () => (
   <React.Fragment>
     <h2>Welcome to Timeline Analyzer!</h2>
     <p>We integrate with...</p>
-    <ServiceBrand name="octocat" />
-    <ServiceBrand name="pivotal tracker" />
-    <ServiceBrand name="travis" />
+    {/* <ServiceBrand name="pivotal tracker" /> */}
     <ServiceBrand name="heroku" />
+    <ServiceBrand name="octocat" />
+    <ServiceBrand name="travis" />
   </React.Fragment>
 );
 

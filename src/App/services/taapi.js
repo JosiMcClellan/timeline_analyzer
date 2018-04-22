@@ -1,6 +1,6 @@
 const taapi = {
   path(path) {
-    return `http://localhost:3000/api/v1/${path}`;
+    return `https://timeline-analyzer-api.herokuapp.com/api/v1/${path}`;
   },
 
   post(resource, params) {
@@ -17,8 +17,8 @@ const taapi = {
     return this.post('auth', { code });
   },
 
-  findOrCreateProjectWithUser(params) {
-    return this.post('projects', { params });
+  connectRepo(stuff) {
+    return this.post('projects', stuff);
   },
 };
 

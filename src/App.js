@@ -1,63 +1,78 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import localUser from './localUser';
+import autosave from './autosave';
 import taapi from './App/services/taapi';
 import Header from './App/Header';
 import Splash from './App/Splash';
-import Main from './App/Main';
+import Member from './App/Member';
 
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = { projects: null, user: localUser.load() };
+  constructor(props) {
+    super(props);
+    autosave(this, { user: null, projects: [] });
   }
 
-  receiveUser = ({ projects, user }) => {
-    console.log({ projects, user });
-    this.setState({ projects, user: localUser.save(user) });
+  signIn = code => (
+    taapi.authenticate(code).then(this.receiveUser)
+  )
+
+  signOut = () => (
+    this.setState.toBlank()
+  )
+
+  receiveUser = data => (
+    this.setState(data)
+  )
+
+  addProject = ({ id, nameWithOwner }) => (
+    taapi.connectRepo({ id, nameWithOwner, userId: this.state.user.id })
+      .then(r => console.log(r) || r).then(this.receiveNewProject)
+  )
+
+  receiveNewProject = newProject => (
+    this.setState(({ projects }) => ({ projects: [newProject, ...projects] }))
+  )
+
+  Header() {
+    return (
+      <Header
+        user={this.state.user}
+        onSignIn={this.signIn}
+        onSignOut={this.signOut}
+      />
+    );
   }
 
-  handleSignOut = () => {
-    this.setState({ projects: null, user: localUser.destroy() });
-  }
-
-  receiveProject = (newProject) => {
-    this.setState(({ projects }) => ({ projects: [newProject, ...projects] }));
-  }
-
-  handleSignIn = (code) => {
-    taapi.authenticate(code).then(this.receiveUser);
-  }
-
-  handleAddProject = (repo) => {
-    taapi.findOrCreateProjectWithUser(repo).then(this.receiveProject);
-  }
-
-  renderMain() {
+  Main() {
     if (!this.state.user) return <Splash />;
     return (
-      <Main
+      <Member
         {...this.state}
-        addProject={this.handleAddProject}
+        addProject={this.addProject}
       />
+    );
+  }
+
+  Footer() {
+    return (
+      <footer className="flex-std">
+        <p>&copy;2018 Josi McClellan</p>
+      </footer>
     );
   }
 
   render() {
     return (
-      <div className="app">
-        <Header
-          user={this.state.user}
-          onSignIn={this.handleSignIn}
-          onSignOut={this.handleSignOut}
-        />
-        <main>
-          {this.renderMain()}
-        </main>
-        <footer className="flex-std">
-          <p>&copy;2018 Josi McClellan</p>
-        </footer>
-      </div>
+      <BrowserRouter>
+        <div className="app">
+          {this.Header()}
+          <main>
+            {this.Main()}
+          </main>
+          {this.Footer()}
+        </div>
+      </BrowserRouter>
     );
   }
 }

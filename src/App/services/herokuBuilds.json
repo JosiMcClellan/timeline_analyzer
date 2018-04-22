@@ -1,12 +1,3 @@
-{
-    "access_token": ACTUAL_TOKEN,
-    "expires_in": 28799,
-    "refresh_token": ACTUAL_TOKEN,
-    "token_type": "Bearer",
-    "user_id": "df4ba7ff-b703-4c5d-843d-db8bc2dd0bff",
-    "session_nonce": null
-}
-
 [
     {
         "app": {
