@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import XPT from '../extendedPropTypes';
-import ProjectAdder from './Dashboard/ProjectAdder';
+import RepoSelect from './Dashboard/RepoSelect';
 
 export default class Dashboard extends React.Component {
   static propTypes = {
@@ -12,11 +12,36 @@ export default class Dashboard extends React.Component {
   }
 
   state = { adding: false }
-  open = () => this.setState({ adding: true })
-  close = () => this.setState({ adding: false });
-  chooseRepo = (repo) => {
+
+  onKeyUp = ({ key }) => {
+    // FIXME the page should know track openness to put lister higher up
+    if (key === 'Escape') this.close();
+  }
+  handleChooseRepo = (repo) => {
     this.props.addProject(repo);
     this.close();
+  }
+  open = () => this.setState({ adding: true })
+  close = () => this.setState({ adding: false });
+
+  Header() {
+    return (
+      <h2 style={{ fontWeight: 'bold', fontSize: '2.2em' }}>
+        {this.props.user.name} - Dashboard
+      </h2>
+    );
+  }
+
+  Button() {
+    if (this.state.adding) {
+      return <button onClick={this.close}>cancel</button>;
+    }
+    return <button onClick={this.open}>New Project</button>;
+  }
+
+  List() {
+    if (this.state.adding) return this.Repos();
+    return this.Projects();
   }
 
   Projects() {
@@ -29,28 +54,24 @@ export default class Dashboard extends React.Component {
     ));
   }
 
-  Header() {
-    return (
-      <h2 style={{ fontWeight: 'bold', fontSize: '2.2em' }}>
-        {this.props.user.name} - Dashboard
-      </h2>
-    );
-  }
-
-  Adder() {
+  Repos() {
     const { user, projects } = this.props;
-    return this.state.adding
-      ? <ProjectAdder {...{ user, projects, chooseRepo: this.chooseRepo }} />
-      : <button onClick={this.open}>New Project</button>;
+    return (
+      <RepoSelect
+        onChoose={this.handleChooseRepo}
+        {...{ user, projects }}
+      />
+    );
   }
 
   render() {
     return (
-      <React.Fragment>
+      <div onKeyUp={this.onKeyUp}>
         {this.Header()}
-        {this.Adder()}
-        {this.Projects()}
-      </React.Fragment>
+        {this.Button()}
+        <br />
+        {this.List()}
+      </div>
     );
   }
 }

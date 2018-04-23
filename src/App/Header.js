@@ -1,30 +1,47 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import XPT from './extendedPropTypes';
 import LoginButton from './LoginButton';
 
-const renderSignOut = onSignOut => (
-  <div>
-    <button onClick={onSignOut} style={{ width: '10%' }}>Sign Out</button>
-  </div>
+export default withRouter(
+  class Header extends React.Component {
+    static propTypes = {
+      user: XPT.user,
+      onSignIn: XPT.func.isRequired,
+      onSignOut: XPT.func.isRequired,
+      ...XPT.history,
+    }
+
+    static defaultProps = {
+      user: null,
+    }
+
+    signOutToHome = () => {
+      this.props.history.push('/');
+      this.props.onSignOut();
+    }
+
+    SignOutButton() {
+      return (
+        <div>
+          <button onClick={this.signOutToHome} style={{ width: '10%' }}>Sign Out</button>
+        </div>
+      );
+    }
+
+    Button() {
+      if (this.props.user) return this.SignOutButton();
+      return <LoginButton handler={this.props.onSignIn} />;
+    }
+
+    render() {
+      return (
+        <header className="flex-std">
+          <h1 className="App-title"><Link to="/">Timeline Analyzer</Link></h1>
+          {this.Button()}
+        </header>
+      );
+    }
+  },
 );
-
-const Header = ({ user, onSignIn, onSignOut }) => (
-  <header className="flex-std">
-    <h1 className="App-title"><Link to="/">Timeline Analyzer</Link></h1>
-    {user ? renderSignOut(onSignOut) : <LoginButton handler={onSignIn} />}
-  </header>
-);
-
-Header.propTypes = {
-  user: XPT.user,
-  onSignIn: XPT.func.isRequired,
-  onSignOut: XPT.func.isRequired,
-};
-
-Header.defaultProps = {
-  user: null,
-};
-
-export default Header;

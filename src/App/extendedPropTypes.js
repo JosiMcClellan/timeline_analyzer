@@ -21,6 +21,12 @@ const XPT = {
     herokuSlug: PropTypes.string,
   }),
 
+  history: {
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
+  },
+
   matchParams(shape) {
     return {
       match: PropTypes.shape({

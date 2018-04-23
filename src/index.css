@@ -76,6 +76,21 @@ body {
 .pending { color: yellow }
 .deletions, .failed { color: #f22 }
 
+.repo {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 4px 1.667%;
+  border-radius: 10px;
+  width: 30%;
+  float: left;
+}
+.repo-details {
+  width: 80%;
+  height: 50%;
+  background-color: #eee;
+}
+
 header, footer {
   background-color: #222;
   color: white;
