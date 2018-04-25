@@ -1,0 +1,362 @@
+{
+  "@type": "builds",
+  "@href": "/repo/17712717/builds?limit=5",
+  "@representation": "standard",
+  "@pagination": {
+    "limit": 5,
+    "offset": 0,
+    "count": 129,
+    "is_first": true,
+    "is_last": false,
+    "next": {
+      "@href": "/repo/17712717/builds?limit=5&offset=5",
+      "offset": 5,
+      "limit": 5
+    },
+    "prev": null,
+    "first": {
+      "@href": "/repo/17712717/builds?limit=5",
+      "offset": 0,
+      "limit": 5
+    },
+    "last": {
+      "@href": "/repo/17712717/builds?limit=5&offset=125",
+      "offset": 125,
+      "limit": 5
+    }
+  },
+  "builds": [
+    {
+      "@type": "build",
+      "@href": "/build/363291740",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": false,
+        "restart": false
+      },
+      "id": 363291740,
+      "number": "129",
+      "state": "errored",
+      "duration": 787,
+      "event_type": "push",
+      "previous_state": "errored",
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-04-06T20:30:59Z",
+      "finished_at": "2018-04-06T20:44:06Z",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/17712717",
+        "@representation": "minimal",
+        "id": 17712717,
+        "name": "okex",
+        "slug": "JosiMcClellan/okex"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/17712717/branch/travis",
+        "@representation": "minimal",
+        "name": "travis"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 108373538,
+        "sha": "a09d08b50156eaf549a55ce69a989935137a7ff2",
+        "ref": "refs/heads/travis",
+        "message": "m",
+        "compare_url": "https://github.com/JosiMcClellan/okex/compare/28bf95768cf2...a09d08b50156",
+        "committed_at": "2018-04-06T20:30:47Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/363291741",
+          "@representation": "minimal",
+          "id": 363291741
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/1135508",
+        "@representation": "minimal",
+        "id": 1135508,
+        "login": "JosiMcClellan"
+      },
+      "updated_at": "2018-04-06T20:44:06.810Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/363250761",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": false,
+        "restart": false
+      },
+      "id": 363250761,
+      "number": "128",
+      "state": "errored",
+      "duration": 792,
+      "event_type": "push",
+      "previous_state": "canceled",
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-04-06T18:46:15Z",
+      "finished_at": "2018-04-06T18:59:27Z",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/17712717",
+        "@representation": "minimal",
+        "id": 17712717,
+        "name": "okex",
+        "slug": "JosiMcClellan/okex"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/17712717/branch/travis",
+        "@representation": "minimal",
+        "name": "travis"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 108361498,
+        "sha": "28bf95768cf234bf7a51653f52298cef5719d920",
+        "ref": "refs/heads/travis",
+        "message": "m",
+        "compare_url": "https://github.com/JosiMcClellan/okex/compare/94743856f2bd...28bf95768cf2",
+        "committed_at": "2018-04-06T18:45:59Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/363250762",
+          "@representation": "minimal",
+          "id": 363250762
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/1135508",
+        "@representation": "minimal",
+        "id": 1135508,
+        "login": "JosiMcClellan"
+      },
+      "updated_at": "2018-04-06T18:59:27.817Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/363246659",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": false,
+        "restart": false
+      },
+      "id": 363246659,
+      "number": "127",
+      "state": "canceled",
+      "duration": 574,
+      "event_type": "push",
+      "previous_state": "canceled",
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-04-06T18:36:00Z",
+      "finished_at": "2018-04-06T18:45:34Z",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/17712717",
+        "@representation": "minimal",
+        "id": 17712717,
+        "name": "okex",
+        "slug": "JosiMcClellan/okex"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/17712717/branch/travis",
+        "@representation": "minimal",
+        "name": "travis"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 108360283,
+        "sha": "94743856f2bdf8eb04086b374cbf505d8366c30e",
+        "ref": "refs/heads/travis",
+        "message": "m",
+        "compare_url": "https://github.com/JosiMcClellan/okex/compare/56e58a5ae9dc...94743856f2bd",
+        "committed_at": "2018-04-06T18:35:48Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/363246660",
+          "@representation": "minimal",
+          "id": 363246660
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/1135508",
+        "@representation": "minimal",
+        "id": 1135508,
+        "login": "JosiMcClellan"
+      },
+      "updated_at": "2018-04-06T18:45:34.205Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/363170074",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": false,
+        "restart": false
+      },
+      "id": 363170074,
+      "number": "126",
+      "state": "canceled",
+      "duration": 65,
+      "event_type": "push",
+      "previous_state": "errored",
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-04-06T16:00:24Z",
+      "finished_at": "2018-04-06T16:01:29Z",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/17712717",
+        "@representation": "minimal",
+        "id": 17712717,
+        "name": "okex",
+        "slug": "JosiMcClellan/okex"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/17712717/branch/travis",
+        "@representation": "minimal",
+        "name": "travis"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 108337250,
+        "sha": "56e58a5ae9dc78e5852a2c3f970566f6b231e062",
+        "ref": "refs/heads/travis",
+        "message": "m",
+        "compare_url": "https://github.com/JosiMcClellan/okex/compare/a1ec351fbe9f...56e58a5ae9dc",
+        "committed_at": "2018-04-06T15:38:19Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/363170075",
+          "@representation": "minimal",
+          "id": 363170075
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/1135508",
+        "@representation": "minimal",
+        "id": 1135508,
+        "login": "JosiMcClellan"
+      },
+      "updated_at": "2018-04-06T16:01:29.750Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/363169830",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": false,
+        "restart": false
+      },
+      "id": 363169830,
+      "number": "125",
+      "state": "canceled",
+      "duration": 84,
+      "event_type": "push",
+      "previous_state": "errored",
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-04-06T15:37:48Z",
+      "finished_at": "2018-04-06T15:38:29Z",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/17712717",
+        "@representation": "minimal",
+        "id": 17712717,
+        "name": "okex",
+        "slug": "JosiMcClellan/okex"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/17712717/branch/travis",
+        "@representation": "minimal",
+        "name": "travis"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 108337149,
+        "sha": "a1ec351fbe9f3fae8103253cae2385adef433f08",
+        "ref": "refs/heads/travis",
+        "message": "m",
+        "compare_url": "https://github.com/JosiMcClellan/okex/compare/ff1f97affacb...a1ec351fbe9f",
+        "committed_at": "2018-04-06T15:37:36Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/363169832",
+          "@representation": "minimal",
+          "id": 363169832
+        },
+        {
+          "@type": "job",
+          "@href": "/job/363169833",
+          "@representation": "minimal",
+          "id": 363169833
+        },
+        {
+          "@type": "job",
+          "@href": "/job/363169834",
+          "@representation": "minimal",
+          "id": 363169834
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/1135508",
+        "@representation": "minimal",
+        "id": 1135508,
+        "login": "JosiMcClellan"
+      },
+      "updated_at": "2018-04-06T15:38:29.230Z"
+    }
+  ]
+}

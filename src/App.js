@@ -1,36 +1,90 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import Header from './Header';
-import Main from './Main';
-import './App.css';
+import autosave from './autosave';
+import taapi from './App/services/taapi';
+import Header from './App/Header';
+import Splash from './App/Splash';
+import Member from './App/Member';
 
 export default class App extends React.Component {
-  state = {
-    user: null,
-    token: null,
-  };
-
-  handleSignIn = ({ user, credential }) => {
-    this.setState({ user, token: credential.accessToken });
+  constructor(props) {
+    super(props);
+    autosave(this, { user: null, projects: [] });
   }
-  handleSignOut = () => {
-    this.setState({ user: null, token: null });
+
+  signIn = code => (
+    taapi.authenticate(code).then(this.receiveUserAndProjects)
+  )
+
+  receiveUserAndProjects = userAndProjects => (
+    this.setState(userAndProjects)
+  )
+
+  signOut = () => (
+    this.setState.toBlank()
+  )
+
+  addProject = ({ id, nameWithOwner }) => (
+    taapi.connectRepo({ id, nameWithOwner, userId: this.state.user.id })
+      .then(this.receiveNewProject)
+  )
+
+  receiveNewProject = newProject => (
+    this.setState(({ projects }) => ({ projects: [newProject, ...projects] }))
+  )
+
+  addUserHeroku = code => (
+    taapi.addUserHeroku(this.state.user.taapiToken, code).then((..._) => {
+      debugger
+      this.setState(({ user }) => console.log(user) || ({ user: { ...user, hasHeroku: true } }))
+    }).catch(console.log)
+  )
+
+  Header() {
+    return (
+      <Header
+        user={this.state.user}
+        onSignIn={this.signIn}
+        onSignOut={this.signOut}
+      />
+    );
+  }
+
+  Main() {
+    const { state, addProject, addUserHeroku } = this;
+    if (!state.user) return <Splash />;
+    return (
+      <Member
+        {...{
+          addProject,
+          addUserHeroku,
+          ...state,
+        }}
+        addProject={this.addProject}
+      />
+    );
+  }
+
+  Footer() {
+    return (
+      <footer className="flex-std">
+        <p>&copy;2018 Josi McClellan</p>
+      </footer>
+    );
   }
 
   render() {
-    const { user, token } = this.state;
     return (
-      <div className="app">
-        <Header
-          loggedIn={!!user}
-          onSignIn={this.handleSignIn}
-          onSignOut={this.handleSignOut}
-        />
-        <Main {...{ user, token }} />
-        <footer className="flex-std">
-          &copy;2018 Josi McClellan
-        </footer>
-      </div>
+      <BrowserRouter>
+        <div className="app">
+          {this.Header()}
+          <main>
+            {this.Main()}
+          </main>
+          {this.Footer()}
+        </div>
+      </BrowserRouter>
     );
   }
 }

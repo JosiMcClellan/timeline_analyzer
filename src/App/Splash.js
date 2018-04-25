@@ -9,14 +9,14 @@ const ServiceBrand = ({ name }) => (
 );
 
 const Splash = () => (
-  <div>
+  <React.Fragment>
     <h2>Welcome to Timeline Analyzer!</h2>
     <p>We integrate with...</p>
-    <ServiceBrand name="octocat" />
-    <ServiceBrand name="pivotal tracker" />
-    <ServiceBrand name="travis" />
+    {/* <ServiceBrand name="pivotal tracker" /> */}
     <ServiceBrand name="heroku" />
-  </div>
+    <ServiceBrand name="octocat" />
+    <ServiceBrand name="travis" />
+  </React.Fragment>
 );
 
 export default Splash;

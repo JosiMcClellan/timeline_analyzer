@@ -9,14 +9,16 @@
     "deploy": "yarn build && firebase deploy && yarn open",
     "pretest": "eslint src/",
     "test": "react-scripts test --env=jsdom",
-    "eject": "echo uncomment to eject #react-scripts eject"
+    "eject": "echo uncomment to eject #react-scripts eject",
+    "ct": "cat"
   },
   "dependencies": {
     "firebase": "^4.12.1",
+    "moment": "^2.22.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-firebaseui": "^1.2.3",
+    "react-oauth-popup": "^0.0.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
   },

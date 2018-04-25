@@ -5905,7 +5905,7 @@ modelo@^4.2.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/modelo/-/modelo-4.2.3.tgz#b278588a4db87fc1e5107ae3a277c0876f38d894"
 
-moment@2.x.x:
+moment@2.x.x, moment@^2.22.0:
   version "2.22.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.0.tgz#7921ade01017dd45186e7fee5f424f0b8663a730"
 
@@ -7164,6 +7164,10 @@ react-firebaseui@^1.2.3:
   dependencies:
     firebaseui "^2.7.0"
     react "^15"
+
+react-oauth-popup@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-oauth-popup/-/react-oauth-popup-0.0.4.tgz#46d6aa49d4b02db12110d63a8df0d71c9556f1f5"
 
 react-router-dom@^4.2.2:
   version "4.2.2"

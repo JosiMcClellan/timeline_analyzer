@@ -1,5 +1,117 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
+
+.app {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Roboto', Helvetica, sans-serif;
+}
+
+.flex-std {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex-std > * {
+  flex: 1;
+}
+
+.service-brand {
+  height: 250px;
+  width: auto;
+}
+
+.column-headers, .event {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+.event {
+  height: 100px;
+  background-color: #ccc;
+}
+.event:nth-child(even){
+  background-color: #eee;
+}
+.cell {
+  flex: 1;
+  border-left: 1px solid black;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.details {
+  flex: 7;
+  padding-right: 2em;
+}
+.details:not(b) {
+  justify-content: flex-start;
+}
+.details b {
+  margin: 0 1em;
+  min-width: 50px;
+}
+.details a, .details p, .details button {
+  width: 150px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+  padding: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+.avatar {
+  width: 2.4em;
+  height: auto;
+}
+.additions, .passed, .succeeded { color: green !important }
+.pending { color: yellow }
+.deletions, .failed { color: #f22 !important }
+
+nav a {
+  text-decoration: none;
+  color: black;
+  margin: 0 20px;
+  font-size: 2em;
+}
+.active {
+  text-decoration: solid orange underline;
+}
+
+.repo {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 4px 1.667%;
+  border-radius: 10px;
+  width: 30%;
+  float: left;
+}
+.repo-details {
+  width: 80%;
+  height: 50%;
+  background-color: #eee;
+}
+
+header, footer {
+  background-color: #222;
+  color: white;
+}
+
+h1 > a {
+  color: white;
+  text-decoration: none;
+}
+
+header { height: 85px }
+footer { height: 35px }
+main { flex: 1 }
