@@ -14,24 +14,31 @@ export default class App extends React.Component {
   }
 
   signIn = code => (
-    taapi.authenticate(code).then(this.receiveUser)
+    taapi.authenticate(code).then(this.receiveUserAndProjects)
+  )
+
+  receiveUserAndProjects = userAndProjects => (
+    this.setState(userAndProjects)
   )
 
   signOut = () => (
     this.setState.toBlank()
   )
 
-  receiveUser = data => (
-    this.setState(data)
-  )
-
   addProject = ({ id, nameWithOwner }) => (
     taapi.connectRepo({ id, nameWithOwner, userId: this.state.user.id })
-      .then(r => console.log(r) || r).then(this.receiveNewProject)
+      .then(this.receiveNewProject)
   )
 
   receiveNewProject = newProject => (
     this.setState(({ projects }) => ({ projects: [newProject, ...projects] }))
+  )
+
+  addUserHeroku = code => (
+    taapi.addUserHeroku(this.state.user.taapiToken, code).then((..._) => {
+      debugger
+      this.setState(({ user }) => console.log(user) || ({ user: { ...user, hasHeroku: true } }))
+    }).catch(console.log)
   )
 
   Header() {
@@ -45,10 +52,15 @@ export default class App extends React.Component {
   }
 
   Main() {
-    if (!this.state.user) return <Splash />;
+    const { state, addProject, addUserHeroku } = this;
+    if (!state.user) return <Splash />;
     return (
       <Member
-        {...this.state}
+        {...{
+          addProject,
+          addUserHeroku,
+          ...state,
+        }}
         addProject={this.addProject}
       />
     );

@@ -4,17 +4,15 @@ import moment from 'moment';
 export default class Deploy {
   constructor(raw) {
     this.raw = raw;
-    this.service = 'Github';
-    this.key = raw.date;
-    this.timestamp = moment(raw.id);
+    this.service = 'Heroku';
+    this.key = raw.id;
+    this.timestamp = moment(raw.created_at);
   }
-
-  service() { return 'Github'; }
 
   DetailsCell = () => (
     <div className="details cell">
-      <b>Made</b>
-      <this.DeployCard />
+      <b>Deploy</b>
+      <p className={this.raw.status}>{this.raw.status}</p>
     </div>
   )
 

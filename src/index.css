@@ -26,16 +26,14 @@ body {
   width: auto;
 }
 
-.column-headers {
+.column-headers, .event {
   display: flex;
   align-items: center;
+  border-bottom: 1px solid black;
 }
-
 .event {
   height: 100px;
   background-color: #ccc;
-  display: flex;
-  align-items: center;
 }
 .event:nth-child(even){
   background-color: #eee;
@@ -49,15 +47,18 @@ body {
   align-items: center;
 }
 .details {
-  flex: 8;
+  flex: 7;
   padding-right: 2em;
+}
+.details:not(b) {
+  justify-content: flex-start;
 }
 .details b {
   margin: 0 1em;
-  flex: 1;
+  min-width: 50px;
 }
 .details a, .details p, .details button {
-  flex: 3;
+  width: 150px;
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
@@ -72,9 +73,19 @@ body {
   width: 2.4em;
   height: auto;
 }
-.additions, .passed { color: green }
+.additions, .passed, .succeeded { color: green !important }
 .pending { color: yellow }
-.deletions, .failed { color: #f22 }
+.deletions, .failed { color: #f22 !important }
+
+nav a {
+  text-decoration: none;
+  color: black;
+  margin: 0 20px;
+  font-size: 2em;
+}
+.active {
+  text-decoration: solid orange underline;
+}
 
 .repo {
   padding: 5px;

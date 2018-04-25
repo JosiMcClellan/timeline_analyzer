@@ -6,11 +6,9 @@ export default class Commit {
   constructor(raw) {
     this.raw = raw;
     this.service = 'Github';
-    this.key = raw.date;
-    this.timestamp = moment(raw.id);
+    this.key = raw.id;
+    this.timestamp = moment(raw.author.date);
   }
-
-  service() { return 'Github'; }
 
   DetailsCell = () => (
     <div className="details cell">

@@ -7,7 +7,9 @@ import Dashboard from './Member/Dashboard';
 import Project from './Member/Project';
 import NotFound from './Member/NotFound';
 
-const Member = ({ user, projects, addProject }) => (
+const Member = ({
+  user, projects, addProject, addUserHeroku,
+}) => (
   <Switch>
     <PropsRoute
       exact
@@ -16,10 +18,9 @@ const Member = ({ user, projects, addProject }) => (
       props={{ user, projects, addProject }}
     />
     <PropsRoute
-      exact
       path="/:id"
       component={Project}
-      props={{ user }}
+      props={{ user, addUserHeroku }}
     />
     <Route component={NotFound} />
   </Switch>
@@ -29,6 +30,7 @@ Member.propTypes = {
   user: XPT.user.isRequired,
   projects: XPT.arrayOf(XPT.project).isRequired,
   addProject: XPT.func.isRequired,
+  addUserHeroku: XPT.func.isRequired,
 };
 
 export default Member;

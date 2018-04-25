@@ -11,7 +11,9 @@ const XPT = {
     name: strReq,
     email: strReq,
     avatarUrl: strReq,
-    accessToken: strReq,
+    githubToken: strReq,
+    taapiToken: strReq,
+    hasHeroku: PropTypes.bool.isRequired,
   }),
 
   project: PropTypes.shape({
@@ -38,7 +40,7 @@ const XPT = {
   locationState(shape) {
     return {
       location: PropTypes.shape({
-        state: PropTypes.shape(shape).isRequired,
+        state: PropTypes.shape(shape),
       }).isRequired,
     };
   },

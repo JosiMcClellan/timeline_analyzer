@@ -17,11 +17,11 @@ export default class Timeline extends React.Component {
     return (
       <div className="timeline">
         <div className="column-headers">
-          <b className="cell service">Service</b>
-          <b className="cell timestamp">Time</b>
-          <b className="cell details">Event</b>
+          <b className="service cell">Service</b>
+          <b className="timestamp cell">Time</b>
+          <b className="details cell">Event</b>
         </div>
-        {<this.Events />}
+        {this.Events()}
       </div>
     );
   }

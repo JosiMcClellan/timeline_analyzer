@@ -3,7 +3,7 @@ import XPT from '../../extendedPropTypes';
 import Github from '../../services/Github';
 import Repo from './RepoSelect/Repo';
 
-class ProjectAdder extends React.Component {
+export default class RepoSelect extends React.Component {
   static propTypes = {
     user: XPT.user.isRequired,
     projects: XPT.arrayOf(XPT.project).isRequired,
@@ -16,7 +16,7 @@ class ProjectAdder extends React.Component {
   }
 
   componentDidMount() {
-    new Github(this.props.user.accessToken).getRepos().then(this.receiveRepos);
+    new Github(this.props.user.githubToken).getRepos().then(this.receiveRepos);
   }
 
   receiveRepos = (repos) => {
@@ -44,5 +44,3 @@ class ProjectAdder extends React.Component {
     });
   }
 }
-
-export default ProjectAdder;

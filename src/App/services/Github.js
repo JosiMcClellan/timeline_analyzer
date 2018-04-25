@@ -46,7 +46,7 @@ export default class Github {
     return this.fetch({
       variables: { id },
       query: Github.commitsQuery,
-    }).then(Github.log).then(data => (
+    }).then(data => (
       data.node.defaultBranchRef.target.history.nodes
     ));
   }
