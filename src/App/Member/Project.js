@@ -34,9 +34,10 @@ export default class Project extends React.Component {
     const routerState = nextProps.location.state;
     return {
       id,
-      commits: [],
-      builds: [],
-      deploys: [],
+      loading: true,
+      commits: null,
+      builds: null,
+      deploys: null,
       project: routerState && routerState.project,
     };
   }
@@ -50,20 +51,22 @@ export default class Project extends React.Component {
     this.getAllEvents();
   }
 
-  getAllEvents() {
-    this.getCommits();
-    this.getProject();
+  getAllEvents = () => {
+    Promise.all([
+      this.getProject(),
+      this.getCommits(),
+    ]).then(([projectAndEvents, commits]) => {
+      if (!projectAndEvents) return this.setState({ loading: false });
+      this.setState({ ...projectAndEvents, commits, loading: false });
+    });
   }
 
   getCommits() {
-    return new Github(this.props.user.githubToken)
-      .getCommits(this.state.id)
-      .then(commits => this.setState({ commits }));
+    return new Github(this.props.user.githubToken).getCommits(this.state.id);
   }
 
   getProject() {
-    return taapi.getProject(this.props.user.taapiToken, this.state.id)
-      .then(projectAndEvents => this.setState(projectAndEvents));
+    return taapi.getProject(this.props.user.taapiToken, this.state.id);
   }
 
   addProjectHeroku = (herokuSlug) => {
@@ -71,7 +74,8 @@ export default class Project extends React.Component {
       this.props.user.taapiToken,
       this.state.project.id,
       herokuSlug,
-    ).then(({ _updated, deploys }) => {
+    ).then(({ updated, deploys }) => {
+      if (!updated) console.warn("couldn't add heroku");
       this.setState(({ project }) => ({
         deploys,
         project: { ...project, herokuSlug, herokuOwnerId: this.props.user.id },
@@ -82,9 +86,9 @@ export default class Project extends React.Component {
   allEvents() {
     const { commits, builds, deploys } = this.state;
     return [
-      ...commits.map(raw => new Commit(raw)),
-      ...builds.map(raw => new Build(raw)),
-      ...deploys.map(raw => new Deploy(raw)),
+      ...(commits || []).map(raw => new Commit(raw)),
+      ...(builds || []).map(raw => new Build(raw)),
+      ...(deploys || []).map(raw => new Deploy(raw)),
     ].sort(
       (a, b) => b.timestamp - a.timestamp,
     );
@@ -92,25 +96,26 @@ export default class Project extends React.Component {
 
   render() {
     const {
-      state: { project },
-      props: { user, addUserHeroku, match: { url } },
+      state: { project, loading },
+      props: { user, addUserHeroku, match },
       addProjectHeroku,
     } = this;
-    if (!project) return null;
+    if (loading) return null;
+    if (!project) return <p>Project {match.params.id} not found.</p>;
     const eventData = this.allEvents();
     return (
       <React.Fragment>
         <div className="flex-std" style={{ borderBottom: '3px groove black' }}>
           <h2>{project.nameWithOwner}</h2>
           <nav style={{ display: 'flex', justifyContent: 'center' }}>
-            <NavLink exact to={url}>Timeline</NavLink>
-            <NavLink exact to={`${url}/config`}>Config</NavLink>
+            <NavLink exact to={match.url}>Timeline</NavLink>
+            <NavLink exact to={`${match.url}/config`}>Config</NavLink>
           </nav>
         </div>
         <Switch>
           <PropsRoute
             exact
-            path={url}
+            path={match.url}
             component={Timeline}
             props={{
               project, eventData,
@@ -118,7 +123,7 @@ export default class Project extends React.Component {
           />
           <PropsRoute
             exact
-            path={`${url}/config`}
+            path={`${match.url}/config`}
             component={Config}
             props={{
               project, user, addUserHeroku, addProjectHeroku,

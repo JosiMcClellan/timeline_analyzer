@@ -36,8 +36,7 @@ export default class App extends React.Component {
 
   addUserHeroku = code => (
     taapi.addUserHeroku(this.state.user.taapiToken, code).then((..._) => {
-      debugger
-      this.setState(({ user }) => console.log(user) || ({ user: { ...user, hasHeroku: true } }))
+      this.setState(({ user }) => ({ user: { ...user, hasHeroku: true } }));
     }).catch(console.log)
   )
 

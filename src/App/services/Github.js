@@ -5,14 +5,10 @@ export default class Github {
     return response.json();
   }
 
-  static dataOrError({ data, message }) {
-    if (data) return data;
-    throw message;
-  }
-
-  static log(stuff) {
-    console.log(stuff);
-    return stuff;
+  static dataOrError({ data, errors }) {
+    if (!errors) return data;
+    console.warn(errors);
+    return null;
   }
 
   constructor(token) {
@@ -30,15 +26,14 @@ export default class Github {
       body: JSON.stringify(params),
     })
       .then(Github.parse)
-      .then(Github.dataOrError)
-      .catch(console.error);
+      .then(Github.dataOrError);
   }
 
   getRepos() {
     return this.fetch({
       query: Github.repositoriesQuery,
     }).then(data => (
-      data.viewer.repositories.nodes
+      data && data.viewer.repositories.nodes
     ));
   }
 
@@ -47,7 +42,7 @@ export default class Github {
       variables: { id },
       query: Github.commitsQuery,
     }).then(data => (
-      data.node.defaultBranchRef.target.history.nodes
+      data && data.node.defaultBranchRef.target.history.nodes
     ));
   }
 

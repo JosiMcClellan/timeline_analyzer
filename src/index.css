@@ -36,7 +36,7 @@ body {
   background-color: #ccc;
 }
 .event:nth-child(even){
-  background-color: #eee;
+  background-color: #ebebeb;
 }
 .cell {
   flex: 1;
@@ -55,13 +55,12 @@ body {
 }
 .details b {
   margin: 0 1em;
-  min-width: 50px;
+  min-width: 70px;
 }
 .details a, .details p, .details button {
   width: 150px;
   display: inline-flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   background-color: white;
   border: 1px solid black;
@@ -74,7 +73,8 @@ body {
   height: auto;
 }
 .additions, .passed, .succeeded { color: green !important }
-.pending { color: yellow }
+.pending { color: #bb0 }
+.errored { color: magenta }
 .deletions, .failed { color: #f22 !important }
 
 nav a {

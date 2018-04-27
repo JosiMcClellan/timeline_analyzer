@@ -11,30 +11,59 @@ export default class Config extends React.Component {
     addProjectHeroku: XPT.func.isRequired,
   }
 
-  state = { slug: '' };
+  static getDerivedStateFromProps(nextProps, _prevState) {
+    return ({
+      slug: nextProps.project.herokuSlug,
+      editing: false,
+    });
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = Config.getDerivedStateFromProps(props);
+  }
+
   readSlug = (event) => {
     this.setState({ slug: event.target.value });
   }
   submitSlug = (event) => {
     event.preventDefault();
-    this.props.addProjectHeroku(this.state.slug);
+    this.props.addProjectHeroku(this.state.slug || null);
+  }
+  removeSlug = () => {
+    this.props.addProjectHeroku(null);
+  }
+  startEditingSlug = () => {
+    this.setState({ editing: true });
+  }
+  cancelEditingSlug = () => {
+    this.setState({
+      slug: this.props.project.herokuSlug,
+      editing: false,
+    });
   }
 
-  HerokuEdit() {
+  HerokuShow() {
     const { herokuSlug, herokuOwnerId } = this.props.project;
     return (
-      <p>
-        Heroku project {herokuSlug} enabled by user {herokuOwnerId}
-      </p>
+      <div>
+        <p>
+          Heroku project {herokuSlug} enabled by user {herokuOwnerId}
+        </p>
+        <button onClick={this.startEditingSlug}>edit</button>
+        <button onClick={this.removeSlug}>remove</button>
+      </div>
     );
   }
 
   HerokuAdd() {
+    const value = this.state.slug || '';
+    const action = this.props.project.herokuSlug ? 'edit' : 'add';
     return (
       <form onSubmit={this.submitSlug} style={{ border: '1px solid black' }}>
-        <h3>Add Heroku</h3>
+        <h3>{action} Heroku slug</h3>
         <label htmlFor="heroku-slug-input">Slug:
-          <input id="heroku-slug-input" value={this.state.slug} onChange={this.readSlug} />
+          <input id="heroku-slug-input" value={value} onChange={this.readSlug} />
         </label>
       </form>
     );
@@ -48,10 +77,9 @@ export default class Config extends React.Component {
       </OauthPopup>
     );
   }
-
   Heroku() {
     const { user, project } = this.props;
-    if (project.herokuSlug) return this.HerokuEdit();
+    if (project.herokuSlug && !this.state.editing) return this.HerokuShow();
     if (user.hasHeroku) return this.HerokuAdd();
     return this.HerokuAuthButton();
   }
@@ -59,7 +87,6 @@ export default class Config extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h2>CONFIG</h2>
         {this.Heroku()}
       </React.Fragment>
     );
